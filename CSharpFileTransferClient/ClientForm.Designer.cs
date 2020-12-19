@@ -32,9 +32,10 @@ namespace CSharpFileTransferClient {
             // btnStartClient
             // 
             this.btnStartClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartClient.Location = new System.Drawing.Point(76, 148);
+            this.btnStartClient.Location = new System.Drawing.Point(101, 182);
+            this.btnStartClient.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStartClient.Name = "btnStartClient";
-            this.btnStartClient.Size = new System.Drawing.Size(151, 40);
+            this.btnStartClient.Size = new System.Drawing.Size(201, 49);
             this.btnStartClient.TabIndex = 2;
             this.btnStartClient.Text = "Connect";
             this.btnStartClient.UseVisualStyleBackColor = true;
@@ -44,17 +45,19 @@ namespace CSharpFileTransferClient {
             // 
             this.lblConnected.AutoSize = true;
             this.lblConnected.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConnected.Location = new System.Drawing.Point(72, 125);
+            this.lblConnected.Location = new System.Drawing.Point(96, 154);
+            this.lblConnected.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblConnected.Name = "lblConnected";
-            this.lblConnected.Size = new System.Drawing.Size(178, 20);
+            this.lblConnected.Size = new System.Drawing.Size(218, 25);
             this.lblConnected.TabIndex = 3;
             this.lblConnected.Text = "Not connected to server";
             // 
             // btnTerminate
             // 
-            this.btnTerminate.Location = new System.Drawing.Point(253, 165);
+            this.btnTerminate.Location = new System.Drawing.Point(337, 203);
+            this.btnTerminate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTerminate.Name = "btnTerminate";
-            this.btnTerminate.Size = new System.Drawing.Size(75, 23);
+            this.btnTerminate.Size = new System.Drawing.Size(100, 28);
             this.btnTerminate.TabIndex = 4;
             this.btnTerminate.Text = "Terminate";
             this.btnTerminate.UseVisualStyleBackColor = true;
@@ -62,14 +65,16 @@ namespace CSharpFileTransferClient {
             // 
             // CSFTClient
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 511);
+            this.ClientSize = new System.Drawing.Size(979, 629);
             this.Controls.Add(this.btnTerminate);
             this.Controls.Add(this.lblConnected);
             this.Controls.Add(this.btnStartClient);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "CSFTClient";
             this.Text = "Client Form";
+            this.Load += new System.EventHandler(this.CSFTClient_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

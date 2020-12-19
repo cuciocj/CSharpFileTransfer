@@ -13,7 +13,7 @@ namespace CSharpFileTransferClient {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CSFTClient());
+            Application.Run(new Login());
         }
     }
 }
