@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketServer", "SocketSampl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketClient", "SocketClient\SocketClient.csproj", "{AC290CAF-75B3-4F5F-97E1-F628ABFBE18B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFileTransferServer", "CSharpFileTransfer\CSharpFileTransferServer.csproj", "{028A4C50-9795-44F6-9996-B204DA4D0CA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTransferServer", "CSharpFileTransfer\FileTransferServer.csproj", "{028A4C50-9795-44F6-9996-B204DA4D0CA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFileTransferClient", "CSharpFileTransferClient\CSharpFileTransferClient.csproj", "{88B950FE-6A0C-4C0A-8731-4A34B42BD0F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTransferClient", "CSharpFileTransferClient\FileTransferClient.csproj", "{88B950FE-6A0C-4C0A-8731-4A34B42BD0F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

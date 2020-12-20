@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpFileTransferClient {
+namespace FileTransferClient {
     public partial class Login : Form {
         TcpClient client = null;
         const string SERVER_IP = "127.0.0.1";
@@ -37,10 +37,11 @@ namespace CSharpFileTransferClient {
                     nwStream = client.GetStream();
 
                     String input = "ping";
+                    String credentials = txtUserName.Text + ',' + txtPassword.Text;
                     do {
                         Console.WriteLine("[c]: {0}", input);
                         // TODO: send username and password to server
-                        byte[] inputBytes = ASCIIEncoding.ASCII.GetBytes(input);
+                        byte[] inputBytes = ASCIIEncoding.ASCII.GetBytes(credentials);
                         nwStream.Write(inputBytes, 0, inputBytes.Length);
                         Thread.Sleep(30000);
                     } while (true);
@@ -64,8 +65,8 @@ namespace CSharpFileTransferClient {
 
             if (result != 1) {
                 this.enableControl();
-            } else {    
-                //this.StartClient();
+            } else {
+                this.StartClient();
             }
         }
 

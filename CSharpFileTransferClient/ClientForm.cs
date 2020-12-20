@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace CSharpFileTransferClient {
+namespace FileTransferClient {
     public partial class CSFTClient : Form {
         TcpClient client = null;
         const string SERVER_IP = "127.0.0.1";

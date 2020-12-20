@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace CSharpFileTransfer {
+namespace FileTransferServer {
     public partial class CSFTServer : Form {
         const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
@@ -41,14 +41,14 @@ namespace CSharpFileTransfer {
                         data = Encoding.ASCII.GetString(bytes, 0, i);
                         Console.WriteLine("[s]: {0}", data);
 
-                        if (data == "ping") {
-                            byte[] inputBytes = ASCIIEncoding.ASCII.GetBytes("pong");
-                            nwStream.Write(inputBytes, 0, inputBytes.Length);
-                        } else if (data == "!q") {
-                            tcpListener.Stop();
-                            client.Close();
-                            flag = false;
-                        }
+                        //if (data == "ping") {
+                        //    byte[] inputBytes = ASCIIEncoding.ASCII.GetBytes("pong");
+                        //    nwStream.Write(inputBytes, 0, inputBytes.Length);
+                        //} else if (data == "!q") {
+                        //    tcpListener.Stop();
+                        //    client.Close();
+                        //    flag = false;
+                        //}
                     }
                 } catch (ObjectDisposedException ex) {
                     Console.WriteLine("ObjectDisposedException: {0}", ex);

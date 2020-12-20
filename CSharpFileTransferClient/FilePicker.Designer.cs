@@ -1,5 +1,5 @@
 ﻿
-namespace CSharpFileTransferClient {
+namespace FileTransferClient {
     partial class FilePicker {
         /// <summary>
         /// Required designer variable.

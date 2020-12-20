@@ -1,5 +1,5 @@
 ﻿
-namespace CSharpFileTransferClient
+namespace FileTransferClient
 {
     partial class Login
     {
@@ -63,7 +63,7 @@ namespace CSharpFileTransferClient
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::CSharpFileTransferClient.Properties.Resources._lock;
+            this.pictureBox2.Image = global::CSharpFileTransferClient.Properties.Resources.lock_1;
             this.pictureBox2.Location = new System.Drawing.Point(108, 179);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(27, 22);
@@ -73,7 +73,7 @@ namespace CSharpFileTransferClient
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::CSharpFileTransferClient.Properties.Resources.user;
+            this.pictureBox1.Image = global::CSharpFileTransferClient.Properties.Resources.user_1;
             this.pictureBox1.Location = new System.Drawing.Point(108, 151);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(27, 22);

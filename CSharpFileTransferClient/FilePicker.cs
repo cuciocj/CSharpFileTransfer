@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpFileTransferClient {
+namespace FileTransferClient {
     public partial class FilePicker : Form {
         public FilePicker() {
             InitializeComponent();

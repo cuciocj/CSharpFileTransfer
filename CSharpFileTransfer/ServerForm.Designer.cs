@@ -1,5 +1,5 @@
 ﻿
-namespace CSharpFileTransfer {
+namespace FileTransferServer {
     partial class CSFTServer {
         /// <summary>
         /// Required designer variable.
