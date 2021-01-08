@@ -37,7 +37,7 @@ namespace SocketSample {
                 client.Close();
             }
 
-            Console.WriteLine("Connection terminated by client");
+            Console.WriteLine("[s]: Connection terminated by client");
         }
     }
 }

@@ -21,6 +21,7 @@ namespace SocketClient {
             }
             nwStream.Close();
             client.Close();
+            Console.Write("[c]: end");
         }
     }
 }

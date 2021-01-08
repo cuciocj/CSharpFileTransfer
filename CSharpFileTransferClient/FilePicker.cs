@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FileTransferClient {
+    
     public partial class FilePicker : Form {
-        public FilePicker() {
+        
+        public FilePicker(Dictionary<int, CSharpFileTransferClient.File> dirFiles) {
             InitializeComponent();
+            InitializeTable(dirFiles);
+        }
+
+        public void InitializeTable(Dictionary<int, CSharpFileTransferClient.File> dirFiles) {
+            Console.WriteLine("init tableeeee");
+            foreach (var file in dirFiles) {
+                Console.WriteLine("{0}: {1}", file.Key, file.Value.name);
+            }
         }
     }
 }

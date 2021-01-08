@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTransferServer", "CShar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTransferClient", "CSharpFileTransferClient\FileTransferClient.csproj", "{88B950FE-6A0C-4C0A-8731-4A34B42BD0F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer v2", "SocketServer v2\SocketServer v2.csproj", "{528A7053-34FB-4B64-9BF2-A5C22DEBFAA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketClient v2", "SocketClient v2\SocketClient v2.csproj", "{07228D08-9EF7-4BDD-AC92-8E621D281823}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{88B950FE-6A0C-4C0A-8731-4A34B42BD0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88B950FE-6A0C-4C0A-8731-4A34B42BD0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88B950FE-6A0C-4C0A-8731-4A34B42BD0F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{528A7053-34FB-4B64-9BF2-A5C22DEBFAA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528A7053-34FB-4B64-9BF2-A5C22DEBFAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528A7053-34FB-4B64-9BF2-A5C22DEBFAA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528A7053-34FB-4B64-9BF2-A5C22DEBFAA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07228D08-9EF7-4BDD-AC92-8E621D281823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07228D08-9EF7-4BDD-AC92-8E621D281823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07228D08-9EF7-4BDD-AC92-8E621D281823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07228D08-9EF7-4BDD-AC92-8E621D281823}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
