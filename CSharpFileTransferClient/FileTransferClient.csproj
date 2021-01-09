@@ -52,7 +52,6 @@
     <Compile Include="ClientForm.Designer.cs">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="File.cs" />
     <Compile Include="FilePicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityLibrary\UtilityLibrary.csproj">
+      <Project>{92b95338-6009-499d-ad67-bebcb4b69040}</Project>
+      <Name>UtilityLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

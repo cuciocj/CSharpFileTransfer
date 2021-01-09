@@ -6,15 +6,15 @@ namespace FileTransferClient {
     
     public partial class FilePicker : Form {
         
-        public FilePicker(Dictionary<int, CSharpFileTransferClient.File> dirFiles) {
+        public FilePicker(Dictionary<int, string> dirFiles) {
             InitializeComponent();
             InitializeTable(dirFiles);
         }
 
-        public void InitializeTable(Dictionary<int, CSharpFileTransferClient.File> dirFiles) {
+        public void InitializeTable(Dictionary<int, string> dirFiles) {
             Console.WriteLine("init tableeeee");
             foreach (var file in dirFiles) {
-                Console.WriteLine("{0}: {1}", file.Key, file.Value.name);
+                Console.WriteLine("{0}: {1}", file.Key, file.Value);
             }
         }
     }

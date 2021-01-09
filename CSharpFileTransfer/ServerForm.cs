@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using UtilityLibrary;
 
 namespace FileTransferServer {
     public partial class CSFTServer : Form {
@@ -94,7 +95,7 @@ namespace FileTransferServer {
                     if (data.StartsWith(":log:")) {
 
                         if (Directory.Exists(DIRECTORY_PATH)) {
-                            Dictionary<int, CSharpFileTransfer.File> dirFiles = new Dictionary<int, CSharpFileTransfer.File>();
+                            Dictionary<int, string> dirFiles = new Dictionary<int, string>();
 
                             int count = 1;
                             foreach (string filename in Directory.GetFiles(DIRECTORY_PATH)) {
@@ -103,19 +104,18 @@ namespace FileTransferServer {
                                     name = Path.GetFileName(filename),
                                     size = fileInfo.Length
                                 };
-                                dirFiles.Add(count, file);
+                                dirFiles.Add(count, file.name + ":" + file.size);
                                 count++;
                             }
 
-                            // convert dictionary to byte array
-                            byte[] dirFilesBytes = ConvertToByteArray(dirFiles);
-                            Send(handler, dirFilesBytes);
+                            UtilityLibrary.Message message = SerialLibrary.Serialize(dirFiles);
+                            Send(handler, message);
                         }
 
                     }
 
-                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                        new AsyncCallback(ReadCallback), state);
+                    //handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    //    new AsyncCallback(ReadCallback), state);
                 } else {
                     Console.WriteLine("[s] Quit Signal : {0}", data);
                     handler.Shutdown(SocketShutdown.Both);
@@ -124,18 +124,9 @@ namespace FileTransferServer {
             }
         }
 
-        private void Send(Socket handler, String data) {
-            // Convert the string data to byte data using ASCII encoding.
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
-
+        public void Send(Socket handler, UtilityLibrary.Message message) {
             // Begin sending the data to the remote device.
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), handler);
-        }
-
-        private void Send(Socket handler, byte[] byteData) {
-            // Begin sending the data to the remote device.
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
+            handler.BeginSend(message.Data, 0, message.Data.Length, 0,
                 new AsyncCallback(SendCallback), handler);
         }
 

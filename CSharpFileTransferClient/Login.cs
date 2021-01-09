@@ -8,6 +8,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using UtilityLibrary;
+using Message = UtilityLibrary.Message;
 
 namespace FileTransferClient {
     // State object for receiving data from remote device.
@@ -26,8 +28,7 @@ namespace FileTransferClient {
     public partial class Login : Form {
         const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
-        public Dictionary<int, CSharpFileTransferClient.File> dirFiles =
-            new Dictionary<int, CSharpFileTransferClient.File>();
+        public Dictionary<int, string> dirFiles = new Dictionary<int, string>();
         Socket client = null;
 
         // ManualResetEvent instances signal completion.  
@@ -70,11 +71,6 @@ namespace FileTransferClient {
                     filepicker.Show();
                 };
                 Invoke(inv);
-
-                do {
-                    Thread.Sleep(10000);
-                    Send(client, "ping");
-                } while (true); // TODO
 
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
@@ -155,7 +151,9 @@ namespace FileTransferClient {
                 } else {
                     // all the data has arrived
                     Console.WriteLine("done receiving: ms size {0}", state.ms.Length);
-                    dirFiles = ConvertFromByteArray(state.ms.ToArray());
+                    //dirFiles = ConvertFromByteArray(state.ms.ToArray());
+                    Message message = new UtilityLibrary.Message { Data = state.ms.ToArray() };
+                    dirFiles = (Dictionary<int, string>) SerialLibrary.Deserialize(message);
 
                     // Signal that all bytes have been received.
                     receiveDone.Set();
