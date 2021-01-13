@@ -16,6 +16,8 @@ namespace FileTransferServer {
         const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
 
+        Dictionary<int, string> dirFiles = new Dictionary<int, string>();
+
         // Thread signal.  
         public ManualResetEvent allDone = new ManualResetEvent(false);
 
@@ -57,6 +59,7 @@ namespace FileTransferServer {
             } catch (Exception e) {
                 Console.WriteLine("Error: {0}", e.ToString());
             }
+
         }
 
         public void AcceptCallback(IAsyncResult ar) {
@@ -95,22 +98,26 @@ namespace FileTransferServer {
                     if (data.StartsWith(":log:")) {
 
                         if (Directory.Exists(DIRECTORY_PATH)) {
-                            Dictionary<int, string> dirFiles = new Dictionary<int, string>();
 
                             int count = 1;
                             foreach (string filename in Directory.GetFiles(DIRECTORY_PATH)) {
                                 FileInfo fileInfo = new FileInfo(filename);
-                                CSharpFileTransfer.File file = new CSharpFileTransfer.File {
-                                    name = Path.GetFileName(filename),
-                                    size = fileInfo.Length
-                                };
-                                dirFiles.Add(count, file.name + ":" + file.size);
+                                dirFiles.Add(count, Path.GetFileName(filename) + ":" + fileInfo.Length);
                                 count++;
                             }
 
                             UtilityLibrary.Message message = SerialLibrary.Serialize(dirFiles);
                             Send(handler, message);
                         }
+                    } else {
+                        Console.WriteLine("here you go...");
+                        int[] ids = data.Split('|').Select(Int32.Parse).ToArray();
+
+                        string filename = dirFiles[ids[0]].Split(':')[0];
+                        Console.WriteLine("to download : {0}: {1}", ids[0], DIRECTORY_PATH + filename);
+                        handler.SendFile(DIRECTORY_PATH + filename);
+                        handler.Shutdown(SocketShutdown.Both);
+                        handler.Close();
 
                     }
 
@@ -146,79 +153,9 @@ namespace FileTransferServer {
             }
         }
 
-        private void StartServer() {
-            IPAddress ipAddress = IPAddress.Parse(SERVER_IP);
-            TcpListener tcpListener = new TcpListener(ipAddress, PORT);
-            tcpListener.Start();
-
-            Byte[] bytes = new byte[256];
-            String data = null;
-
-            bool flag = true;
-            while (flag) {
-                Console.Write("[s]: Waiting for a connection... ");
-                TcpClient client = tcpListener.AcceptTcpClient();
-                Console.WriteLine("[s]: Connected!");
-
-                MethodInvoker inv = delegate {
-                    this.lblClientConnected.Text = "Client connected";
-                };
-                Invoke(inv);
-
-                NetworkStream nwStream = client.GetStream();
-
-                int i;
-                try {
-                    while ((i = nwStream.Read(bytes, 0, bytes.Length)) != 0) {
-                        data = Encoding.ASCII.GetString(bytes, 0, i);
-                        Console.WriteLine("[s]: {0}", data);
-
-                        //if (data == "ping") {
-                        //    byte[] inputBytes = ASCIIEncoding.ASCII.GetBytes("pong");
-                        //    nwStream.Write(inputBytes, 0, inputBytes.Length);
-                        //} else if (data == "!q") {
-                        //    tcpListener.Stop();
-                        //    client.Close();
-                        //    flag = false;
-                        //}
-                    }
-                } catch (ObjectDisposedException ex) {
-                    Console.WriteLine("ObjectDisposedException: {0}", ex);
-                } finally {
-                    tcpListener.Stop();
-                    MethodInvoker invf = delegate {
-                        btnStart.Enabled = true;
-                        btnStart.Text = "Start";
-                    };
-                    Invoke(invf);
-                }
-
-            }
-            Console.WriteLine("[s]: Connection terminated by client");
-        }
-
-        private byte[] ConvertToByteArray(Object obj) {
-            var binFormatter = new BinaryFormatter();
-            var mStream = new MemoryStream();
-            binFormatter.Serialize(mStream, obj);
-
-            return mStream.ToArray();
-        }
-
-        private Dictionary<int, CSharpFileTransfer.File> ConvertFromByteArray(byte[] byteArray) {
-            var mStream = new MemoryStream();
-            var binFormatter = new BinaryFormatter();
-
-            mStream.Write(byteArray, 0, byteArray.Length);
-            mStream.Position = 0;
-
-            return binFormatter.Deserialize(mStream) as Dictionary<int, CSharpFileTransfer.File>;
-        }
-
         private void btnStart_Click(object sender, EventArgs e) {
             btnStart.Enabled = false;
             btnStart.Text = "Listening...";
-            // Thread serverThread = new Thread(new ThreadStart(StartServer));
             Thread serverThread = new Thread(new ThreadStart(StartListening));
             serverThread.Start();
         }

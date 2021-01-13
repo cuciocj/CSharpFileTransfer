@@ -165,24 +165,6 @@ namespace FileTransferClient {
             }
         }
 
-        private Dictionary<int, CSharpFileTransferClient.File> ConvertFromByteArray(byte[] byteArray) {
-            var mStream = new MemoryStream();
-            var binFormatter = new BinaryFormatter();
-
-            Console.WriteLine("byteArray SIZE {0}", byteArray.Length);
-            mStream.Write(byteArray, 0, byteArray.Length);
-            mStream.Position = 0;
-
-            Dictionary<int, CSharpFileTransferClient.File> d = null;
-            try {
-                d = binFormatter.Deserialize(mStream) as Dictionary<int, CSharpFileTransferClient.File>;
-            } catch (SerializationException e) {
-                Console.WriteLine("ConvertFromByteArray E: {0}", e.ToString());
-            }
-
-            return d;
-        }
-
         /*
          * Process login
          */

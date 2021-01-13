@@ -24,52 +24,48 @@ namespace FileTransferClient {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.filesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.filesDataGridView = new System.Windows.Forms.DataGridView();
+            this.btnDownload = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.filesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // filesDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.filename,
-            this.filesize});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 24);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 0;
+            this.filesDataGridView.AllowUserToAddRows = false;
+            this.filesDataGridView.AllowUserToDeleteRows = false;
+            this.filesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.filesDataGridView.Location = new System.Drawing.Point(12, 48);
+            this.filesDataGridView.Name = "filesDataGridView";
+            this.filesDataGridView.Size = new System.Drawing.Size(710, 451);
+            this.filesDataGridView.TabIndex = 0;
             // 
-            // filename
+            // btnDownload
             // 
-            this.filename.HeaderText = "Filename";
-            this.filename.Name = "filename";
-            this.filename.ReadOnly = true;
-            // 
-            // filesize
-            // 
-            this.filesize.HeaderText = "File Size";
-            this.filesize.Name = "filesize";
-            this.filesize.ReadOnly = true;
+            this.btnDownload.Location = new System.Drawing.Point(12, 12);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(75, 23);
+            this.btnDownload.TabIndex = 1;
+            this.btnDownload.Text = "Download";
+            this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // FilePicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 511);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.btnDownload);
+            this.Controls.Add(this.filesDataGridView);
             this.Name = "FilePicker";
             this.Text = "FilePicker";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.filesDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn filesize;
+        private System.Windows.Forms.DataGridView filesDataGridView;
+        private System.Windows.Forms.Button btnDownload;
     }
 }
