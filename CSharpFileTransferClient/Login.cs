@@ -23,6 +23,9 @@ namespace FileTransferClient {
         // Received data string.  
         public StringBuilder sb = new StringBuilder();
         public MemoryStream ms = new MemoryStream();
+
+        public byte[] bytesDownloaded;
+        public string currentIdDownload;
     }
 
     public partial class Login : Form {

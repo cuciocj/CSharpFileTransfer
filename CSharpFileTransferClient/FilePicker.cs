@@ -20,7 +20,7 @@ namespace FileTransferClient {
             new ManualResetEvent(false);
 
         private DownloadableFiles files;
-        private byte[] bytesDownloaded;
+
         const string DOWNLOADED_FILES_PATH = "D:\\ebook\\downloads\\";
 
         public FilePicker(Dictionary<int, string> dirFiles) {
@@ -79,8 +79,6 @@ namespace FileTransferClient {
             List<DataGridViewRow> rows = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in filesDataGridView.Rows) {
                 if (Convert.ToBoolean(row.Cells["action"].Value) == true) {
-                    // ServerFile file = files.Get(row.Cells[0].Value.ToString());
-                    // Console.WriteLine("{0} : {1}", file.name, file.ToString());
                     rows.Add(row);
                 }
             }
@@ -110,7 +108,7 @@ namespace FileTransferClient {
             try {
                 Socket client = (Socket) ar.AsyncState;
                 client.EndConnect(ar);
-                Console.WriteLine("Socket connected to {0}",
+                Console.WriteLine("[c] Socket connected to {0}",
                     client.RemoteEndPoint.ToString());
                 connectDone.Set();
             } catch (Exception e) {
@@ -135,15 +133,18 @@ namespace FileTransferClient {
             }
         }
 
-        private void Receive(Socket client) {
+        private void Receive(Socket client, String data) {
+            StateObject state = null;
             try {
-                StateObject state = new StateObject();
-                state.workSocket = client;
+                state = new StateObject {
+                    currentIdDownload = data,
+                    workSocket = client
+                };
 
                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReceiveCallback), state);
             } catch (Exception e) {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("Receive: error: {0}", e.ToString());
             }
         }
 
@@ -158,8 +159,13 @@ namespace FileTransferClient {
                     client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                         new AsyncCallback(ReceiveCallback), state);
                 } else {
-                    bytesDownloaded = state.ms.ToArray();
+                    state.bytesDownloaded = state.ms.ToArray();
                     receiveDone.Set();
+
+                    // process bytesDownloaded
+                    Console.WriteLine("ReceiveCallback: bytesDownloaded size: {0}", state.bytesDownloaded.Length);
+                    Console.WriteLine("ReceiveCallback: currentDownload: {0}", state.currentIdDownload);
+                    File.WriteAllBytes(DOWNLOADED_FILES_PATH + files.Get(state.currentIdDownload).name, state.bytesDownloaded);
                 }
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
@@ -198,20 +204,19 @@ namespace FileTransferClient {
             ids = string.Join("|", checkedRows.Select(row => row.Cells[0].Value.ToString()));
             Console.WriteLine("ids: {0}", ids);
 
-            Socket socket = InitializeClientSocket();
-            Send(socket, ids);
-            sendDone.WaitOne();
+            // loop for each checked row and send download request
+            foreach (DataGridViewRow row in checkedRows) {
+                string id = row.Cells[0].Value.ToString();
+                Console.WriteLine("id to send to server {0}", id);
 
-            Receive(socket);
-            receiveDone.WaitOne();
+                Socket socket = InitializeClientSocket();
+                Send(socket, id);
+                sendDone.WaitOne();
 
-            socket.Shutdown(SocketShutdown.Both);
-            socket.Close();
-
-            // process bytesDownloaded
-            string[] split = ids.Split('|');
-            Console.WriteLine("bytesDownloaded size: {0}", bytesDownloaded.Length);
-            File.WriteAllBytes(DOWNLOADED_FILES_PATH + files.Get(split[0]).name, bytesDownloaded);
+                Receive(socket, id);
+                receiveDone.WaitOne();
+                Thread.Sleep(5000);
+            }
         }
     }
 }

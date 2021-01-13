@@ -57,7 +57,7 @@ namespace FileTransferServer {
                     allDone.WaitOne();
                 }
             } catch (Exception e) {
-                Console.WriteLine("Error: {0}", e.ToString());
+                Console.WriteLine("StartListening Error: {0}", e.ToString());
             }
 
         }
@@ -110,15 +110,23 @@ namespace FileTransferServer {
                             Send(handler, message);
                         }
                     } else {
-                        Console.WriteLine("here you go...");
-                        int[] ids = data.Split('|').Select(Int32.Parse).ToArray();
+                        //int[] ids = data.Split('|').Select(Int32.Parse).ToArray();
 
-                        string filename = dirFiles[ids[0]].Split(':')[0];
-                        Console.WriteLine("to download : {0}: {1}", ids[0], DIRECTORY_PATH + filename);
-                        handler.SendFile(DIRECTORY_PATH + filename);
+                        //string filename = dirFiles[ids[0]].Split(':')[0];
+                        //Console.WriteLine("to download : {0}: {1}", ids[0], DIRECTORY_PATH + filename);
+                        //handler.SendFile(DIRECTORY_PATH + filename);
+
+                        //// beginAccept again?
+
+                        //handler.Shutdown(SocketShutdown.Both);
+                        //handler.Close();
+
+                        string filepath = DIRECTORY_PATH + dirFiles[int.Parse(data)].Split(':')[0];
+                        Console.WriteLine("initiate send file: {0}", filepath);
+                        handler.SendFile(filepath);
+                        
                         handler.Shutdown(SocketShutdown.Both);
                         handler.Close();
-
                     }
 
                     //handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
