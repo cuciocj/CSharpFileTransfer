@@ -26,6 +26,7 @@ namespace FileTransferClient {
         private void InitializeComponent() {
             this.filesDataGridView = new System.Windows.Forms.DataGridView();
             this.btnDownload = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.filesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,11 +50,22 @@ namespace FileTransferClient {
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Location = new System.Drawing.Point(646, 11);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 2;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
             // FilePicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 511);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.filesDataGridView);
             this.Name = "FilePicker";
@@ -67,5 +79,6 @@ namespace FileTransferClient {
 
         private System.Windows.Forms.DataGridView filesDataGridView;
         private System.Windows.Forms.Button btnDownload;
+        private System.Windows.Forms.Button btnSettings;
     }
 }

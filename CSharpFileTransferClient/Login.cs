@@ -12,21 +12,6 @@ using UtilityLibrary;
 using Message = UtilityLibrary.Message;
 
 namespace FileTransferClient {
-    // State object for receiving data from remote device.
-    public class StateObject {
-        // Client socket.  
-        public Socket workSocket = null;
-        // Size of receive buffer.  
-        public const int BufferSize = 1024;
-        // Receive buffer.  
-        public byte[] buffer = new byte[BufferSize];
-        // Received data string.  
-        public StringBuilder sb = new StringBuilder();
-        public MemoryStream ms = new MemoryStream();
-
-        public byte[] bytesDownloaded;
-        public string currentIdDownload;
-    }
 
     public partial class Login : Form {
         const string SERVER_IP = "127.0.0.1";
@@ -228,5 +213,21 @@ namespace FileTransferClient {
             this.btnLogin.Text = "Logging in";
             errInput.Clear();
         }
+    }
+
+    // State object for receiving data from remote device.
+    public class StateObject {
+        // Client socket.  
+        public Socket workSocket = null;
+        // Size of receive buffer.  
+        public const int BufferSize = 1024;
+        // Receive buffer.  
+        public byte[] buffer = new byte[BufferSize];
+        // Received data string.  
+        public StringBuilder sb = new StringBuilder();
+        public MemoryStream ms = new MemoryStream();
+
+        public byte[] bytesDownloaded;
+        public string currentIdDownload;
     }
 }

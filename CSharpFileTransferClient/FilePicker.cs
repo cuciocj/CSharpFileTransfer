@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpFileTransferClient;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -21,7 +22,7 @@ namespace FileTransferClient {
 
         private DownloadableFiles files;
 
-        const string DOWNLOADED_FILES_PATH = "D:\\ebook\\downloads\\";
+        // public static string DOWNLOADED_FILES_PATH = "D:\\ebook\\downloads\\";
 
         public FilePicker(Dictionary<int, string> dirFiles) {
             InitializeComponent();
@@ -165,7 +166,7 @@ namespace FileTransferClient {
                     // process bytesDownloaded
                     Console.WriteLine("ReceiveCallback: bytesDownloaded size: {0}", state.bytesDownloaded.Length);
                     Console.WriteLine("ReceiveCallback: currentDownload: {0}", state.currentIdDownload);
-                    File.WriteAllBytes(DOWNLOADED_FILES_PATH + files.Get(state.currentIdDownload).name, state.bytesDownloaded);
+                    File.WriteAllBytes(Settings.DOWNLOADS_DIRECTORY + files.Get(state.currentIdDownload).name, state.bytesDownloaded);
                 }
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
@@ -201,22 +202,41 @@ namespace FileTransferClient {
         private void btnDownload_Click(object sender, EventArgs e) {
             List<DataGridViewRow> checkedRows = GetCheckedRows();
             String ids = String.Empty;
-            ids = string.Join("|", checkedRows.Select(row => row.Cells[0].Value.ToString()));
-            Console.WriteLine("ids: {0}", ids);
 
-            // loop for each checked row and send download request
-            foreach (DataGridViewRow row in checkedRows) {
-                string id = row.Cells[0].Value.ToString();
-                Console.WriteLine("id to send to server {0}", id);
+            if (checkedRows.Count > 0) {
+                ids = string.Join("|", checkedRows.Select(row => row.Cells[0].Value.ToString()));
+                Console.WriteLine("ids: {0}", ids);
 
-                Socket socket = InitializeClientSocket();
-                Send(socket, id);
-                sendDone.WaitOne();
+                // loop for each checked row and send download request
+                foreach (DataGridViewRow row in checkedRows) {
+                    string id = row.Cells[0].Value.ToString();
+                    Console.WriteLine("id to send to server {0}", id);
 
-                Receive(socket, id);
-                receiveDone.WaitOne();
-                Thread.Sleep(5000);
+                    Socket socket = InitializeClientSocket();
+                    Send(socket, id);
+                    sendDone.WaitOne();
+
+                    Receive(socket, id);
+                    receiveDone.WaitOne();
+                    Thread.Sleep(5000);
+                }
+            } else {
+                string message = "There are no selected files for download.";
+                string caption = "Error detected in input";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+                DialogResult dialogResult = MessageBox.Show(message, caption, buttons);
+                if (dialogResult == System.Windows.Forms.DialogResult.OK) {
+                    // this.Close();
+                }
+
             }
+            
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e) {
+            Settings settingsForm = new Settings();
+            settingsForm.Show();
         }
     }
 }
