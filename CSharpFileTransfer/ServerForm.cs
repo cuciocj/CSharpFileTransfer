@@ -16,7 +16,7 @@ namespace FileTransferServer {
         const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
 
-        Dictionary<int, string> dirFiles = new Dictionary<int, string>();
+        private Dictionary<int, string> dirFiles = new Dictionary<int, string>();
 
         // Thread signal.  
         public ManualResetEvent allDone = new ManualResetEvent(false);
