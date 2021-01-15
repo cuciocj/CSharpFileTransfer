@@ -204,21 +204,30 @@ namespace FileTransferClient {
             String ids = String.Empty;
 
             if (checkedRows.Count > 0) {
-                ids = string.Join("|", checkedRows.Select(row => row.Cells[0].Value.ToString()));
-                Console.WriteLine("ids: {0}", ids);
+                if(Settings.MAX_DOWNLOAD >= checkedRows.Count) {
+                    ids = string.Join("|", checkedRows.Select(row => row.Cells[0].Value.ToString()));
+                    Console.WriteLine("ids: {0}", ids);
 
-                // loop for each checked row and send download request
-                foreach (DataGridViewRow row in checkedRows) {
-                    string id = row.Cells[0].Value.ToString();
-                    Console.WriteLine("id to send to server {0}", id);
+                    // loop for each checked row and send download request
+                    foreach (DataGridViewRow row in checkedRows) {
+                        string id = row.Cells[0].Value.ToString();
+                        Console.WriteLine("id to send to server {0}", id);
 
-                    Socket socket = InitializeClientSocket();
-                    Send(socket, id);
-                    sendDone.WaitOne();
+                        Socket socket = InitializeClientSocket();
+                        Send(socket, id);
+                        sendDone.WaitOne();
 
-                    Receive(socket, id);
-                    receiveDone.WaitOne();
-                    Thread.Sleep(5000);
+                        Receive(socket, id);
+                        receiveDone.WaitOne();
+                        Thread.Sleep(5000);
+                    }
+                } else {
+                    string message = "Number of files selected:" + checkedRows.Count
+                        + " exceeds MAX:" + Settings.MAX_DOWNLOAD + " simultaneous download limit";
+                    string caption = "Max simultaneous download limit exceeded";
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    MessageBox.Show(message, caption, buttons);
+                    
                 }
             } else {
                 string message = "There are no selected files for download.";
