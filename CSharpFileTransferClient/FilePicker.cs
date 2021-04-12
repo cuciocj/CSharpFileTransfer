@@ -22,8 +22,6 @@ namespace FileTransferClient {
 
         private DownloadableFiles files;
 
-        // public static string DOWNLOADED_FILES_PATH = "D:\\ebook\\downloads\\";
-
         public FilePicker(Dictionary<int, string> dirFiles) {
             InitializeComponent();
             SetupDataGridView();
@@ -32,7 +30,6 @@ namespace FileTransferClient {
 
         public void SetupDataGridView() {
             filesDataGridView.ColumnCount = 3;
-            // filesDataGridView.Size = new Size(350, 100);
             filesDataGridView.AutoSizeRowsMode =
                 DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             filesDataGridView.ColumnHeadersBorderStyle =
@@ -235,9 +232,6 @@ namespace FileTransferClient {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
 
                 DialogResult dialogResult = MessageBox.Show(message, caption, buttons);
-                if (dialogResult == System.Windows.Forms.DialogResult.OK) {
-                    // this.Close();
-                }
 
             }
             

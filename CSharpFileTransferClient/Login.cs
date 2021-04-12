@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -41,13 +39,10 @@ namespace FileTransferClient {
                     new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
 
-                // TODO: send login credentials
                 String message = ":log:";
                 Send(client, message);
                 sendDone.WaitOne();
 
-                // TODO add login validation before proceeding to filepicker
-                // TODO get files list and initialize file picker form
                 ReceiveDirectoryFiles(client);
                 receiveDone.WaitOne();
 
@@ -215,7 +210,9 @@ namespace FileTransferClient {
         }
     }
 
-    // State object for receiving data from remote device.
+    /*
+     * State object for receiving data from remote device
+     */
     public class StateObject {
         // Client socket.  
         public Socket workSocket = null;

@@ -69,7 +69,7 @@ namespace FileTransferClient {
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.filesDataGridView);
             this.Name = "FilePicker";
-            this.Text = "FilePicker";
+            this.Text = "CSFT App-Client";
             ((System.ComponentModel.ISupportInitialize)(this.filesDataGridView)).EndInit();
             this.ResumeLayout(false);
 
