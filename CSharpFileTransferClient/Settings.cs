@@ -16,7 +16,7 @@ namespace CSharpFileTransferClient {
 
         public static int MAX_SIZE_ALLOWED = 5000;
 
-        public static string DOWNLOADS_DIRECTORY = "D:\\Downloads\\";
+        public static string DOWNLOADS_DIRECTORY = "C:\\Users\\cucio\\Documents\\#PERSONAL\\ebooks\\Downloads";
 
         public Settings() {
             InitializeComponent();

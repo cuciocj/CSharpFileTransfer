@@ -22,8 +22,6 @@ namespace FileTransferClient {
 
         private DownloadableFiles files;
 
-        // public static string DOWNLOADED_FILES_PATH = "D:\\ebook\\downloads\\";
-
         public FilePicker(Dictionary<int, string> dirFiles) {
             InitializeComponent();
             SetupDataGridView();
