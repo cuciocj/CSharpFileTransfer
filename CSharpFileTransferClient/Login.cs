@@ -14,7 +14,7 @@ using Message = UtilityLibrary.Message;
 namespace FileTransferClient {
 
     public partial class Login : Form {
-        const string SERVER_IP = "127.0.0.1";
+        const string SERVER_IP = "127.0.0.2";
         const int PORT = 5000;
         public Dictionary<int, string> dirFiles = new Dictionary<int, string>();
         Socket client = null;
