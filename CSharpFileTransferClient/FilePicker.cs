@@ -13,6 +13,9 @@ using System.Windows.Forms;
 namespace FileTransferClient {
     
     public partial class FilePicker : Form {
+        const string IP_ADDRESS = "127.0.0.1";
+        const int PORT = 5000;
+
         private static ManualResetEvent connectDone =
             new ManualResetEvent(false);
         private static ManualResetEvent sendDone =
@@ -24,6 +27,9 @@ namespace FileTransferClient {
 
         public FilePicker(Dictionary<int, string> dirFiles) {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             SetupDataGridView();
             InitializeTable(dirFiles);
         }
@@ -87,8 +93,8 @@ namespace FileTransferClient {
         private Socket InitializeClientSocket() {
             Socket client = null;
             try {
-                IPAddress iPAddress = IPAddress.Parse("127.0.0.1");
-                IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, 5000);
+                IPAddress iPAddress = IPAddress.Parse(IP_ADDRESS);
+                IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, PORT);
                 client = new Socket(iPAddress.AddressFamily,
                     SocketType.Stream, ProtocolType.Tcp);
                 client.BeginConnect(iPEndPoint,
@@ -216,8 +222,11 @@ namespace FileTransferClient {
 
                         Receive(socket, id);
                         receiveDone.WaitOne();
-                        Thread.Sleep(5000);
+                        Thread.Sleep(1000);
                     }
+
+                    DownloadCompleteDialog downloadCompleteDialog = new DownloadCompleteDialog();
+                    downloadCompleteDialog.ShowDialog();
                 } else {
                     string message = "Number of files selected:" + checkedRows.Count
                         + " exceeds MAX:" + Settings.MAX_DOWNLOAD + " simultaneous download limit";

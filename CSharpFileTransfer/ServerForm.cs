@@ -10,8 +10,8 @@ using UtilityLibrary;
 
 namespace FileTransferServer {
     public partial class CSFTServer : Form {
-        const string DIRECTORY_PATH = "C:\\Users\\cucio\\Documents\\#PERSONAL\\ebooks";
-        const string SERVER_IP = "127.0.0.2";
+        const string DIRECTORY_PATH = "C:\\Users\\cucio\\Documents\\#PERSONAL\\ebooks\\";
+        const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
 
         private Dictionary<int, string> dirFiles = new Dictionary<int, string>();
@@ -21,6 +21,9 @@ namespace FileTransferServer {
 
         public CSFTServer() {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         public class StateObject {

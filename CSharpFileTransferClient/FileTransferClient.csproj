@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadableFiles.cs" />
+    <Compile Include="DownloadCompleteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadCompleteDialog.Designer.cs">
+      <DependentUpon>DownloadCompleteDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FilePicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DownloadCompleteDialog.resx">
+      <DependentUpon>DownloadCompleteDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilePicker.resx">
       <DependentUpon>FilePicker.cs</DependentUpon>
     </EmbeddedResource>
