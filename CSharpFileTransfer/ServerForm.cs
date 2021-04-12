@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -93,9 +91,13 @@ namespace FileTransferServer {
                 if (data != "!quit") {
                     Console.WriteLine("[s] Data : {0}", data);
 
-                    // After logging in, 
-                    // send list of file inside the DIRECTORY_PATH
+                    // After logging in, send list of file inside the DIRECTORY_PATH
                     if (data.StartsWith(":log:")) {
+
+                        MethodInvoker inv = delegate {
+                            lblClientConnected.Text = "Client Connected.";
+                        };
+                        Invoke(inv);
 
                         if (Directory.Exists(DIRECTORY_PATH)) {
 
@@ -110,17 +112,6 @@ namespace FileTransferServer {
                             Send(handler, message);
                         }
                     } else {
-                        //int[] ids = data.Split('|').Select(Int32.Parse).ToArray();
-
-                        //string filename = dirFiles[ids[0]].Split(':')[0];
-                        //Console.WriteLine("to download : {0}: {1}", ids[0], DIRECTORY_PATH + filename);
-                        //handler.SendFile(DIRECTORY_PATH + filename);
-
-                        //// beginAccept again?
-
-                        //handler.Shutdown(SocketShutdown.Both);
-                        //handler.Close();
-
                         string filepath = DIRECTORY_PATH + dirFiles[int.Parse(data)].Split(':')[0];
                         Console.WriteLine("initiate send file: {0}", filepath);
                         handler.SendFile(filepath);
@@ -128,9 +119,6 @@ namespace FileTransferServer {
                         handler.Shutdown(SocketShutdown.Both);
                         handler.Close();
                     }
-
-                    //handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    //    new AsyncCallback(ReadCallback), state);
                 } else {
                     Console.WriteLine("[s] Quit Signal : {0}", data);
                     handler.Shutdown(SocketShutdown.Both);

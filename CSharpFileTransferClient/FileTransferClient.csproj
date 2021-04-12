@@ -49,13 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClientForm.Designer.cs">
-      <DependentUpon>ClientForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClientSocket.cs" />
     <Compile Include="DownloadableFiles.cs" />
     <Compile Include="FilePicker.cs">
       <SubType>Form</SubType>
@@ -78,9 +71,6 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ClientForm.resx">
-      <DependentUpon>ClientForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FilePicker.resx">
       <DependentUpon>FilePicker.cs</DependentUpon>
     </EmbeddedResource>
@@ -127,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UtilityLibrary\UtilityLibrary.csproj">
-      <Project>{92b95338-6009-499d-ad67-bebcb4b69040}</Project>
+      <Project>{92B95338-6009-499D-AD67-BEBCB4B69040}</Project>
       <Name>UtilityLibrary</Name>
     </ProjectReference>
   </ItemGroup>

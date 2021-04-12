@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UtilityLibrary\UtilityLibrary.csproj">
-      <Project>{92b95338-6009-499d-ad67-bebcb4b69040}</Project>
+      <Project>{92B95338-6009-499D-AD67-BEBCB4B69040}</Project>
       <Name>UtilityLibrary</Name>
     </ProjectReference>
   </ItemGroup>
