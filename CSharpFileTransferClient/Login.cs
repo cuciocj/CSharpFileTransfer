@@ -169,7 +169,6 @@ namespace FileTransferClient {
             if (result != 1) {
                 this.enableControl();
             } else {
-                // TODO: validate credentials
                 Thread clientThread = new Thread(new ThreadStart(StartClient));
                 clientThread.Start();
             }
