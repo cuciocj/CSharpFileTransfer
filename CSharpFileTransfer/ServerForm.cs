@@ -10,7 +10,7 @@ using UtilityLibrary;
 
 namespace FileTransferServer {
     public partial class CSFTServer : Form {
-        const string DIRECTORY_PATH = "D:\\MyFiles\\";
+        const string DIRECTORY_PATH = "D:\\";
         const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
 
