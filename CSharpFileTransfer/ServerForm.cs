@@ -14,6 +14,7 @@ namespace FileTransferServer {
         const string SERVER_IP = "127.0.0.1";
         const int PORT = 5000;
 
+        // int key : string filename + filesize
         private Dictionary<int, string> dirFiles = new Dictionary<int, string>();
 
         // Thread signal.  
@@ -33,6 +34,7 @@ namespace FileTransferServer {
             public Socket workSocket = null; // Client socket.
         }
 
+        // Server will start waiting for a connection using the SERVER_IP and PORT
         public void StartListening() {
             IPAddress ipAddress = IPAddress.Parse(SERVER_IP);
             IPEndPoint localEndpoint = new IPEndPoint(ipAddress, PORT);
@@ -72,8 +74,9 @@ namespace FileTransferServer {
             Socket handler = listener.EndAccept(ar);
 
             // Create the state object.
-            StateObject state = new StateObject();
-            state.workSocket = handler;
+            StateObject state = new StateObject {
+                workSocket = handler
+            };
             handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                 new AsyncCallback(ReadCallback), state);
         }
@@ -97,6 +100,8 @@ namespace FileTransferServer {
                     // After logging in, send list of file inside the DIRECTORY_PATH
                     if (data.StartsWith(":log:")) {
 
+                        // change the label in the ServerForm to connected.
+                        // MethodInvoker is used here to change the label because this part is being run in a separate thread.
                         MethodInvoker inv = delegate {
                             lblClientConnected.Text = "Client Connected.";
                         };
@@ -111,10 +116,12 @@ namespace FileTransferServer {
                                 count++;
                             }
 
+                            // process to send the dirFiles dictionary back to the client
                             UtilityLibrary.Message message = SerialLibrary.Serialize(dirFiles);
                             Send(handler, message);
                         }
                     } else {
+                        // this part is when the client request for file download
                         string filepath = DIRECTORY_PATH + dirFiles[int.Parse(data)].Split(':')[0];
                         Console.WriteLine("initiate send file: {0}", filepath);
                         handler.SendFile(filepath);
@@ -152,6 +159,7 @@ namespace FileTransferServer {
             }
         }
 
+        // StartListening() method will start in a new thread when start button is clicked
         private void btnStart_Click(object sender, EventArgs e) {
             btnStart.Enabled = false;
             btnStart.Text = "Listening...";

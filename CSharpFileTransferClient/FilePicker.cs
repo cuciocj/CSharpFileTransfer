@@ -34,6 +34,7 @@ namespace FileTransferClient {
             InitializeTable(dirFiles);
         }
 
+        // initialize the grid table for files display
         public void SetupDataGridView() {
             filesDataGridView.ColumnCount = 3;
             filesDataGridView.AutoSizeRowsMode =
@@ -228,6 +229,7 @@ namespace FileTransferClient {
                     DownloadCompleteDialog downloadCompleteDialog = new DownloadCompleteDialog();
                     downloadCompleteDialog.ShowDialog();
                 } else {
+                    // MAX allowed downloads exceeded
                     string message = "Number of files selected:" + checkedRows.Count
                         + " exceeds MAX:" + Settings.MAX_DOWNLOAD + " simultaneous download limit";
                     string caption = "Max simultaneous download limit exceeded";

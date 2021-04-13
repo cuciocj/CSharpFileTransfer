@@ -32,6 +32,7 @@ namespace FileTransferClient {
             this.MinimizeBox = false;
         }
 
+        // Client will start connecting to the server using the ip and port provided
         private void StartClient() {
             try {
                 IPAddress ipAddress = IPAddress.Parse(SERVER_IP);
@@ -42,6 +43,7 @@ namespace FileTransferClient {
                     new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
 
+                // send a message that will tell the server that this is a login request
                 String message = ":log:";
                 Send(client, message);
                 sendDone.WaitOne();
@@ -51,6 +53,7 @@ namespace FileTransferClient {
 
                 Console.WriteLine("done waiting: dirFiles size: {0}", dirFiles.Count);
 
+                // hide the login then show the filepicker after successful login
                 MethodInvoker inv = delegate {
                     this.Hide();
                     FilePicker filepicker = new FilePicker(dirFiles);
@@ -109,10 +112,11 @@ namespace FileTransferClient {
 
         private void ReceiveDirectoryFiles(Socket client) {
             try {
-                StateObject state = new StateObject();
-                state.workSocket = client;
+                StateObject state = new StateObject {
+                    workSocket = client
+                };
 
-                // Begin receiving the data from the remote device.
+                // Begin receiving the data from the server.
                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReceiveDirectoryFilesCallback), state);
             } catch (Exception e) {
@@ -165,6 +169,7 @@ namespace FileTransferClient {
             if (result != 1) {
                 this.enableControl();
             } else {
+                // TODO: validate credentials
                 Thread clientThread = new Thread(new ThreadStart(StartClient));
                 clientThread.Start();
             }
